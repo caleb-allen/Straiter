@@ -1,21 +1,30 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, moment } from 'obsidian';
 
 // Remember to rename these classes and interfaces!
 
-interface MyPluginSettings {
+interface StraiterSettings {
 	mySetting: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: StraiterSettings = {
 	mySetting: 'default'
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class Straiter extends Plugin {
+	settings: StraiterSettings;
 
 	async onload() {
 		await this.loadSettings();
 
+		// https://docs.obsidian.md/Reference/TypeScript+API/Vault/on('create')
+		this.registerEvent(this.app.vault.on('create', (file) => {
+			console.log('a new file has entered the arena');
+			app.fileManager.processFrontMatter(file, (frontmatter) => {
+				var date = moment().format('MM-DD-YYYY'),
+				frontmatter['date'] = date;
+			});
+		}));
+		/*
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('dice', 'Sample Plugin', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
@@ -76,6 +85,7 @@ export default class MyPlugin extends Plugin {
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		*/
 	}
 
 	onunload() {
@@ -91,32 +101,33 @@ export default class MyPlugin extends Plugin {
 	}
 }
 
+/*
 class SampleModal extends Modal {
 	constructor(app: App) {
 		super(app);
 	}
 
 	onOpen() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.setText('Woah!');
 	}
 
 	onClose() {
-		const {contentEl} = this;
+		const { contentEl } = this;
 		contentEl.empty();
 	}
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: Straiter;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: Straiter) {
 		super(app, plugin);
 		this.plugin = plugin;
 	}
 
 	display(): void {
-		const {containerEl} = this;
+		const { containerEl } = this;
 
 		containerEl.empty();
 
@@ -132,3 +143,4 @@ class SampleSettingTab extends PluginSettingTab {
 				}));
 	}
 }
+*/
