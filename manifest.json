@@ -1,11 +1,10 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "Straiter",
+	"name": "Straiter",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"description": "Straitens out some wrinkles",
+	"author": "Caleb Allen",
+	"authorUrl": "https://github.com/caleb-allen",
 	"isDesktopOnly": false
 }
